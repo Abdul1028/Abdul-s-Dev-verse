@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthSessionProvider from "./components/AuthSessionProvider";
 import { ThemeProvider } from "./components/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
               <main className="flex-1">{children}</main>
             </div>
           </AuthSessionProvider>
+          <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
     </html>

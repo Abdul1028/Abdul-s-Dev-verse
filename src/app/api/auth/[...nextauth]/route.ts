@@ -1,6 +1,6 @@
 import NextAuth, { type AuthOptions, type Account, type Profile, type User, type Session } from "next-auth"
 import { type JWT } from "next-auth/jwt"
-import GithubProvider, { type GithubProfile } from "next-auth/providers/github"
+import GitHubProvider, { type GithubProfile } from "next-auth/providers/github"
 
 if (!process.env.GITHUB_CLIENT_ID) {
   throw new Error("Missing GITHUB_CLIENT_ID in .env.local")
@@ -10,10 +10,10 @@ if (!process.env.GITHUB_CLIENT_SECRET) {
   throw new Error("Missing GITHUB_CLIENT_SECRET in .env.local")
 }
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   // Configure one or more authentication providers
   providers: [
-    GithubProvider({
+    GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
@@ -41,6 +41,11 @@ const authOptions: AuthOptions = {
         session.user.id = token.id as number; // Ensure it is number if it exists
         session.user.login = token.login as string; // Ensure it is string if it exists
         // session.user.image is already populated by NextAuth from avatar_url
+      }
+      if (token && session.user) {
+        // If your GitHub provider puts username in token.name or token.login
+        // @ts-ignore // NextAuth types can be tricky with custom token properties
+        session.user.name = token.name || token.login || session.user.name;
       }
       return session
     }
