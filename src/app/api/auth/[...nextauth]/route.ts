@@ -10,7 +10,7 @@ if (!process.env.GITHUB_CLIENT_SECRET) {
   throw new Error("Missing GITHUB_CLIENT_SECRET in .env.local")
 }
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GithubProvider({

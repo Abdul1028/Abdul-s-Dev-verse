@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 
+
 // This tells Next.js to render the page dynamically based on the slug
 // and not to try to generate static paths at build time for this initial setup.
 // We want to read from the filesystem on each request for now.
@@ -17,11 +18,12 @@ import { format } from 'date-fns';
 //   return slugs.map(slug => ({ slug }));
 // }
 
-interface PostPageProps {
+
+type PostPageProps = {
   params: {
     slug: string;
   };
-}
+};
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = params;
