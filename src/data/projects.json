@@ -1,0 +1,38 @@
+[
+  {
+    "id": "project-1",
+    "title": "E-commerce Platform",
+    "description": "A full-featured e-commerce platform built with Next.js, Tailwind CSS, and Stripe integration for payments. Includes product listings, cart functionality, and user accounts.",
+    "images": [
+      "/placeholders/project1-1.jpg", 
+      "/placeholders/project1-2.jpg"
+    ],
+    "liveUrl": "https://example.com/live-project-1",
+    "repoUrl": "https://github.com/yourusername/project-1",
+    "tags": ["Next.js", "React", "Tailwind CSS", "Stripe", "TypeScript"],
+    "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
+  },
+  {
+    "id": "project-2",
+    "title": "Portfolio Website V1",
+    "description": "My previous personal portfolio website, designed to showcase my skills and projects. Built with HTML, CSS, and vanilla JavaScript.",
+    "images": [
+      "/placeholders/project2-1.jpg"
+    ],
+    "liveUrl": "https://example.com/portfolio-v1",
+    "repoUrl": "https://github.com/yourusername/portfolio-v1",
+    "tags": ["HTML", "CSS", "JavaScript", "Responsive Design"]
+  },
+  {
+    "id": "project-3",
+    "title": "Task Management App",
+    "description": "A collaborative task management application using Firebase for real-time data synchronization and authentication. Users can create tasks, assign them, and track progress.",
+    "images": [
+      "/placeholders/project3-1.jpg",
+      "/placeholders/project3-2.jpg",
+      "/placeholders/project3-3.jpg"
+    ],
+    "repoUrl": "https://github.com/yourusername/task-app",
+    "tags": ["React", "Firebase", "Material UI", "Collaboration"]
+  }
+] 
