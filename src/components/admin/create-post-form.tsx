@@ -3,25 +3,48 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea } from '@/components/ui/textarea'; // Re-added for Summary field
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import TiptapEditor from './tiptap-editor';
+import TurndownService from 'turndown';
 
-// Helper function to generate a slug (you might want a more robust one)
+// Initialize Turndown service
+const turndownService = new TurndownService({ 
+  headingStyle: 'atx', // Use # for headings
+  hr: '---', // Use --- for horizontal rules
+  bulletListMarker: '-', // Use - for bullet lists
+  codeBlockStyle: 'fenced', // Use ``` for code blocks
+});
+// Add a rule for images to keep them as basic Markdown images
+turndownService.addRule('userImage', {
+  filter: 'img',
+  replacement: function (content: string, node: any) { // Typed 'content' parameter
+    const alt = node.alt || '';
+    const src = node.getAttribute('src') || '';
+    const title = node.title || '';
+    const titlePart = title ? ` "${title}"` : '';
+    return src ? `![${alt}](${src}${titlePart})` : '';
+  }
+});
+
+
+// Helper function to generate a slug
 const generateSlug = (title: string): string => {
   return title
     .toLowerCase()
     .trim()
-    .replace(/[\s\W-]+/g, '-') // Replace spaces, non-word chars, and hyphens with a single hyphen
-    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+    .replace(/[\s\W-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 };
 
 export default function CreatePostForm() {
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [summary, setSummary] = useState('');
-  const [author, setAuthor] = useState('Abdul1028'); // Default author
-  const [mdxContent, setMdxContent] = useState('# Your H1 Title Here\n\nStart writing your blog post content in Markdown/MDX format.\n\n- Use lists\n- **Bold text**\n- [Links](https://example.com)\n');
+  const [author, setAuthor] = useState('Abdul1028');
+  // Initial content for Tiptap is now HTML or Markdown that Tiptap can parse
+  const [editorHtmlContent, setEditorHtmlContent] = useState('<p>Start writing your blog post content...</p>');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,17 +53,22 @@ export default function CreatePostForm() {
     setSlug(generateSlug(newTitle));
   };
 
+  const handleEditorContentChange = (htmlContent: string) => {
+    setEditorHtmlContent(htmlContent);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!title || !slug || !summary || !mdxContent) {
+    if (!title || !slug || !summary || !editorHtmlContent) {
       toast.error('Please fill in all fields: Title, Summary, and Content.');
       setIsLoading(false);
       return;
     }
 
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+    const markdownContent = turndownService.turndown(editorHtmlContent);
 
     const fileContent = `---
 title: '${title.replace(/'/g, "\''")}'
@@ -50,7 +78,7 @@ summary: '${summary.replace(/'/g, "\''")}'
 slug: '${slug}'
 ---
 
-${mdxContent}
+${markdownContent}
 `;
 
     try {
@@ -63,18 +91,10 @@ ${mdxContent}
       document.body.removeChild(link);
       URL.revokeObjectURL(link.href);
       toast.success(`MDX file "${slug}.mdx" generated and download started!`);
-      
-      // Optionally reset form
-      // setTitle('');
-      // setSlug('');
-      // setSummary('');
-      // setMdxContent('# Your H1 Title Here\n\n...');
-
     } catch (error) {
       console.error("Error generating file:", error);
       toast.error("Failed to generate MDX file.");
     }
-
     setIsLoading(false);
   };
 
@@ -95,7 +115,7 @@ ${mdxContent}
 
       <div>
         <Label htmlFor="postSummary">Summary</Label>
-        <Textarea 
+        <Textarea // This should now work
           id="postSummary" 
           value={summary} 
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setSummary(e.target.value)} 
@@ -119,17 +139,12 @@ ${mdxContent}
 
       <div>
         <Label htmlFor="mdxContent">MDX Content</Label>
-        <Textarea 
-          id="mdxContent" 
-          value={mdxContent} 
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setMdxContent(e.target.value)} 
-          placeholder="Write your blog post using Markdown/MDX..."
-          rows={15}
-          className="font-mono text-sm"
-          required
+        <TiptapEditor 
+          content={editorHtmlContent} 
+          onChange={handleEditorContentChange} 
         />
         <p className="text-xs text-muted-foreground mt-1">
-          Supports Markdown including headings, bold, italics, links, lists, etc. 
+          Use the toolbar to format your content. Images will be inserted using their URLs.
         </p>
       </div>
 
