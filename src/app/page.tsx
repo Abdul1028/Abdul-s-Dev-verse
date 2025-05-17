@@ -14,7 +14,7 @@ export default function HomePage() {
     { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/props.username' }, // Replace with your URL
     { name: 'LeetCode', icon: Code, url: 'https://leetcode.com/Abdul1028' }, // Replace with your URL (using generic Code icon)
   ];
-
+  
   return (
     // Main container for the page. 
     // 'overflow-hidden' is good to prevent scrollbars from the iframe.
@@ -37,7 +37,7 @@ export default function HomePage() {
 
       {/* Foreground Content Wrapper - positions content at top-center */}
       <div
-        className="relative z-10 flex flex-col items-center pt-8 sm:pt-12 md:pt-16 p-4 w-full"
+        className="relative z-10 flex flex-col items-center pt-15 sm:pt-12 md:pt-16 p-4 w-full mt-20 "
         style={{ pointerEvents: 'none' }} // Allows clicks to pass through to the iframe
       >
         {/* Actual Text Block - re-enables pointer events for itself */}
