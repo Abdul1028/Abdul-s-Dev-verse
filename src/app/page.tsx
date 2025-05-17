@@ -44,19 +44,20 @@ export default function HomePage() {
         <div className="text-center" style={{ pointerEvents: 'auto' }}>
           <h1
             className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-white"
-            style={{ textShadow: '0 0 5px rgba(0,0,0,0.7), 0 0 8px rgba(0,0,0,0.5)' }} // Slightly stronger shadow
+            style={{ textShadow: '0 0 8px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.6)' }} // Reverted to stronger, multi-layered dark shadow
           >
-            Welcome to Abdul's Dev-verse
+            <span>Welcome to </span>
+            <span className="text-emerald-400">Abdul's Dev-verse</span>
           </h1>
           <p
             className="text-xs sm:text-sm text-slate-300 max-w-sm sm:max-w-md md:max-w-lg mx-auto mb-6"
-            style={{ textShadow: '0 0 5px rgba(0,0,0,0.7), 0 0 8px rgba(0,0,0,0.5)' }} // Slightly stronger shadow
+            style={{ textShadow: '0 0 5px rgba(0,0,0,0.7), 0 0 8px rgba(0,0,0,0.5)' }} 
           >
             Building innovative solutions and bringing complex ideas to life through code. Discover my work.
           </p>
-          {/* Enhanced Button */}
-          {/* Ensure you have an <a> tag if this is a link, or handle navigation via onClick if it stays a <button> */}
-          <a href="#projects" className="no-underline group cursor-pointer inline-block"> {/* Added inline-block to <a> if it's a link */}
+          
+          <a href="#projects" className="no-underline group cursor-pointer inline-block"
+             style={{ animationFillMode: 'forwards' }}> 
             <button className="bg-slate-800 no-underline relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6 text-white group active:scale-95 transition-transform duration-150">
               <span className="absolute inset-0 overflow-hidden rounded-full">
                 <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

@@ -9,11 +9,12 @@ import Image from "next/image";
 import {
   Github, Home, BookText, Briefcase,
   Activity, Coffee, TerminalSquare, Cpu,
-  Menu, X // Added Menu and X icons
+  Menu, X, UserCircle, Moon, Sun // Added UserCircle for About
 } from "lucide-react"; // Added icons
 // import TypewriterTitle from '@/components/ui/typewriter-title'; // No longer using this one for the main title
 import LoopingPhrases from '@/components/ui/looping-phrases'; // Import the new component
 import { useState, useEffect } from 'react'; // Added useState and useEffect
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const { data: session, status } = useSession();
@@ -29,6 +30,7 @@ export function Navbar() {
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
     { href: "/projects", label: "Projects", icon: <Briefcase className="h-4 w-4" /> },
     { href: "/blog", label: "Blog", icon: <BookText className="h-4 w-4" /> },
+    { href: "/about", label: "About", icon: <UserCircle className="h-4 w-4" /> },
   ];
 
   // Updated phrases for the main looping title
@@ -39,6 +41,46 @@ export function Navbar() {
     { text: "Tinkers with Tech", icon: <TerminalSquare className="h-5 w-5"/> },
     { text: "Full-Stack Developer", icon: <Cpu className="h-5 w-5"/> },
   ];
+
+  const NavLinks = ({ className, linkClassName }: { className?: string, linkClassName?: string }) => {
+    const pathname = usePathname();
+    const navItems = [
+      { href: "/", label: "Home", icon: Home },
+      { href: "/projects", label: "Projects", icon: Briefcase },
+      { href: "/blog", label: "Blog", icon: BookText },
+      { href: "/about", label: "About", icon: UserCircle },
+    ];
+
+    return (
+      <nav className={cn("flex items-center space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-6", className)}>
+        {navItems.map((item) => {
+          const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={cn(
+                "relative group inline-flex items-center px-1 pt-1 pb-1.5 text-sm font-medium leading-5 transition-colors duration-150 ease-in-out focus:outline-none focus:text-gray-700 dark:focus:text-gray-300",
+                isActive
+                  ? "border-b-2 border-emerald-400 text-gray-900 dark:text-white"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white",
+                linkClassName
+              )}
+            >
+              <item.icon className="mr-1 sm:mr-1.5 h-4 w-4 sm:h-5 sm:w-5 opacity-80" aria-hidden="true" />
+              {item.label}
+              {/* Animated Underline for non-active links */}
+              {!isActive && (
+                <span
+                  className="absolute bottom-0 left-0 h-[2px] w-full bg-emerald-400 transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100"
+                />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -55,27 +97,9 @@ export function Navbar() {
         </Link>
 
         {/* Center: Desktop Navigation Links - Hidden on md and below initially */}
-        <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm font-medium">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={`relative group transition-colors hover:text-foreground/80 py-1 ${isActive ? 'text-foreground' : 'text-foreground/60'}`}
-              >
-                <span className="flex items-center gap-1.5">
-                  {link.icon}
-                  {link.label}
-                </span>
-                {/* Animated Underline */}
-                <span 
-                  className={`absolute bottom-0 left-0 h-[1.5px] bg-primary w-full transition-transform duration-300 ease-out origin-left ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
-                />
-              </Link>
-            );
-          })}
-        </nav>
+        <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm font-medium">
+          <NavLinks />
+        </div>
 
         {/* Right Side: Theme Toggle & Auth Actions (Desktop) */}
         <div className="hidden md:flex items-center gap-3">
@@ -134,20 +158,7 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-lg border-t border-border/40">
           <nav className="flex flex-col items-center gap-4 p-6 text-base font-medium">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={`flex items-center gap-2 rounded-md px-3 py-2 transition-colors hover:bg-muted/50 hover:text-foreground ${isActive ? 'text-foreground bg-muted/50' : 'text-foreground/70'}`}
-                  onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                >
-                  {link.icon}
-                  {link.label}
-                </Link>
-              );
-            })}
+            <NavLinks className="flex flex-col items-center gap-4 w-full" linkClassName="w-full" />
             <hr className="w-full border-border/40 my-2" />
             {/* Mobile Auth Actions & Theme Toggle */}
             <div className="flex flex-col items-center gap-4 w-full">
