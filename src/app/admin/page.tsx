@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth/next";
 // IMPORTANT: Replace @/app/api/auth/[...nextauth]/route with the correct path if this is not it
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; 
+import { authOptions } from "@/lib/authOptions";
 import { redirect } from "next/navigation";
 import AdminControls from "@/components/admin/admin-controls"; // We will create this next
 import CreatePostForm from "@/components/admin/create-post-form"; // Import the new form
