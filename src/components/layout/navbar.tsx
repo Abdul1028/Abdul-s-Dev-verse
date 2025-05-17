@@ -8,14 +8,22 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {
   Github, Home, BookText, Briefcase,
-  Activity, Coffee, TerminalSquare, Cpu // New icons for looping phrases
+  Activity, Coffee, TerminalSquare, Cpu,
+  Menu, X // Added Menu and X icons
 } from "lucide-react"; // Added icons
 // import TypewriterTitle from '@/components/ui/typewriter-title'; // No longer using this one for the main title
 import LoopingPhrases from '@/components/ui/looping-phrases'; // Import the new component
+import { useState, useEffect } from 'react'; // Added useState and useEffect
 
 export function Navbar() {
   const { data: session, status } = useSession();
   const pathname = usePathname(); // Get current path
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
@@ -34,7 +42,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container relative flex h-16 max-w-screen-2xl items-center justify-between px-6">
+      <div className="container relative flex h-16 max-w-screen-2xl items-center justify-between px-4 sm:px-6">
         {/* Left Side: Looping Title - This is now the primary title element */}
         <Link href="/" className="flex items-center group transition-opacity hover:opacity-80 duration-150">
           <LoopingPhrases 
@@ -46,7 +54,7 @@ export function Navbar() {
           />
         </Link>
 
-        {/* Center: Desktop Navigation Links - Absolutely Positioned for true centering */}
+        {/* Center: Desktop Navigation Links - Hidden on md and below initially */}
         <nav className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-6 text-sm font-medium">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
@@ -69,8 +77,8 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right Side: Theme Toggle & Auth Actions */}
-        <div className="flex items-center gap-3">
+        {/* Right Side: Theme Toggle & Auth Actions (Desktop) */}
+        <div className="hidden md:flex items-center gap-3">
           <Button 
             variant="outline" 
             size="icon" 
@@ -109,9 +117,61 @@ export function Navbar() {
           )}
         </div>
         
-        {/* TODO: Mobile Navigation (Hamburger Menu) - for later enhancement */}
-        {/* <div className="md:hidden order-first pr-2"> <Button variant="outline" size="icon"> <Menu className="h-5 w-5"/> </Button> </div> */}
+        {/* Hamburger Menu Button - Visible on md and below */}
+        <div className="md:hidden flex items-center">
+          <Button 
+            variant="outline"
+            size="icon"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
       </div>
+
+      {/* Mobile Menu Panel - Conditional rendering based on state */} 
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-16 left-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-lg border-t border-border/40">
+          <nav className="flex flex-col items-center gap-4 p-6 text-base font-medium">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`flex items-center gap-2 rounded-md px-3 py-2 transition-colors hover:bg-muted/50 hover:text-foreground ${isActive ? 'text-foreground bg-muted/50' : 'text-foreground/70'}`}
+                  onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
+                >
+                  {link.icon}
+                  {link.label}
+                </Link>
+              );
+            })}
+            <hr className="w-full border-border/40 my-2" />
+            {/* Mobile Auth Actions & Theme Toggle */}
+            <div className="flex flex-col items-center gap-4 w-full">
+              {status === 'loading' && (
+                <div className="h-9 w-full bg-muted rounded-md animate-pulse"></div>
+              )}
+              {status !== 'loading' && !session && (
+                <Button onClick={() => { signIn('github'); setIsMobileMenuOpen(false); }} className="w-full flex items-center gap-2">
+                  <Github className="h-4 w-4" />
+                  Sign In
+                </Button>
+              )}
+              {session?.user && (
+                <Button variant="outline" onClick={() => { signOut(); setIsMobileMenuOpen(false); }} className="w-full">
+                  Sign Out
+                </Button>
+              )}
+              <div className="mt-2">
+                 <ThemeToggleButton />
+              </div>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }   
