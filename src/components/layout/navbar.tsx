@@ -33,7 +33,7 @@ export function Navbar() {
 
   // Updated phrases for the main looping title
   const loopingTitlePhrases = [
-    { text: "Abdul's Dev-verse" ,icon: <Activity className="h-5 w-5"/> }, // No icon for the main title part
+    { text: "Abdul's Dev-verse" ,icon: <Activity className="h-5 w-5"/> }, 
     { text: "Indie Developer", icon: <Activity className="h-5 w-5"/> },
     { text: "Loves Hot Coffee", icon: <Coffee className="h-5 w-5"/> },
     { text: "Tinkers with Tech", icon: <TerminalSquare className="h-5 w-5"/> },
