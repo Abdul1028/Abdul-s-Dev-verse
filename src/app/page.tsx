@@ -14,33 +14,38 @@ export default function HomePage() {
       <iframe
         src="https://threejs-solar-system-green.vercel.app/"
         style={{
-          position: 'fixed', // Positions relative to the viewport
+          position: 'fixed',
           top: 0,
           left: 0,
-          width: '100vw',   // 100% of viewport width
-          height: '100vh',  // 100% of viewport height
+          width: '100vw',
+          height: '100vh',
           border: 'none',
-          // zIndex: -1, // Removing z-index to see if it's causing the issue with main's stacking context
+          // No zIndex: iframe is part of main's stacking context, will be behind zIndex:10 elements
         }}
         title="Interactive Solar System Background"
-        // allowFullScreen // Optional: if the source supports it and you want a fullscreen button within the iframe
       />
 
-      {/* Foreground Content Container - currently commented out */}
-      {/* <div className="relative z-10 container mx-auto px-4 py-8">
-       
-        <div className="bg-black bg-opacity-40 backdrop-blur-md p-6 sm:p-10 rounded-lg shadow-xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-white">
-            Welcome to DevPortfolio
+      {/* Foreground Content Wrapper - positions content at top-center */}
+      <div 
+        className="relative z-10 flex flex-col items-center pt-12 sm:pt-16 md:pt-20 p-4 w-full"
+        style={{ pointerEvents: 'none' }} // Allows clicks to pass through to the iframe
+      >
+        {/* Actual Text Block - re-enables pointer events for itself */}
+        <div className="text-center" style={{ pointerEvents: 'auto' }}>
+          <h1 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white"
+            style={{ textShadow: '0 0 8px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.6)' }} // Slightly stronger shadow
+          >
+            Welcome to Abdul's Dev-verse
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-slate-100 mb-8 max-w-xl sm:max-w-2xl mx-auto">
-            This is where your awesome projects and blog posts will shine.
+          <p 
+            className="text-md sm:text-lg md:text-xl text-slate-200 max-w-md sm:max-w-lg lg:max-w-xl mx-auto"
+            style={{ textShadow: '0 0 8px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.6)' }} // Slightly stronger shadow
+          >
+            Building innovative solutions and bringing complex ideas to life through code. Discover my work.
           </p>
-        
         </div>
-
-        
-      </div> */}
+      </div>
 
     </main>
   );
