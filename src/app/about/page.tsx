@@ -1,8 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { Brain, Cpu, Database, Layers, Palette, Server, CodeSquare, Github, Mail, ExternalLink, Download, Sparkles, Briefcase, Users, CalendarDays, Link as LinkIcon, ChevronRight, Laptop } from 'lucide-react';
-import { useState } from 'react';
+import {
+  Brain, Cpu, Database, Layers, Palette, Server, CodeSquare, Github, Mail, ExternalLink, Download, Sparkles, Briefcase, Users, CalendarDays, Link as LinkIcon, ChevronRight, Laptop,
+  FileCode, DatabaseZap, CloudCog, ShieldCheck, GitFork,
+  Pi, SquareFunction, Atom, Terminal, Database as DatabaseIcon, Cloud, GitMerge, Wand2, Settings2, Aperture, TestTube2, Puzzle, Coffee
+} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import React from 'react';
+import GitHubCalendar from 'react-github-calendar';
 import {
   Card,
   CardContent,
@@ -24,16 +30,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import type { LucideIcon } from 'lucide-react'; // Import LucideIcon type
 
 interface Skill {
   name: string;
-  icon?: React.ReactNode;
+  icon?: LucideIcon;
   color?: string;
 }
 
 interface SkillCategory {
   title: string;
-  icon: React.ReactNode;
+  icon: LucideIcon;
   skills: Skill[];
 }
 
@@ -50,6 +57,7 @@ interface Experience {
 
 export default function AboutPage() {
   const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(2024);
 
   const githubUsername = "Abdul1028";
   const userCity = "Mumbai"; // TODO: Replace with your city
@@ -121,64 +129,94 @@ export default function AboutPage() {
   const techStack: SkillCategory[] = [
     {
       title: "Languages",
-      icon: <CodeSquare className="w-5 h-5 text-emerald-500" />,
+      icon: FileCode,
       skills: [
-        { name: "Python", color: "bg-blue-500" }, 
-        { name: "Java", color: "bg-orange-600" }, 
-        { name: "JavaScript", color: "bg-yellow-400 text-yellow-900" }
+        { name: "Python", icon: Pi }, 
+        { name: "Java", icon: Coffee },
+        { name: "JavaScript", icon: SquareFunction }
       ],
     },
     {
       title: "Frameworks & Libraries",
-      icon: <Layers className="w-5 h-5 text-emerald-500" />,
+      icon: Layers,
       skills: [
-        { name: "Node.js", color: "bg-green-600" }, 
-        { name: "Express.js", color: "bg-gray-800" }, 
-        { name: "Next.js", color: "bg-gray-900" },
-        { name: "Spring Boot", color: "bg-green-500" }, 
-        { name: "Django", color: "bg-green-700" },
+        { name: "Node.js", icon: Server }, 
+        { name: "Express.js", icon: Settings2 }, 
+        { name: "Next.js", icon: Aperture },
+        { name: "Spring Boot", icon: Puzzle }, 
+        { name: "Django", icon: Terminal }
       ],
     },
     {
       title: "Frontend",
-      icon: <Palette className="w-5 h-5 text-emerald-500" />,
+      icon: Palette,
       skills: [
-        { name: "React", color: "bg-blue-400" }, 
-        { name: "Tailwind CSS", color: "bg-cyan-500" }, 
-        { name: "Shadcn/ui", color: "bg-purple-600" }
+        { name: "React", icon: Atom }, 
+        { name: "Tailwind CSS", icon: Wand2 }, 
+        { name: "Shadcn/ui", icon: Puzzle }
       ],
     },
     {
       title: "AI / ML",
-      icon: <Brain className="w-5 h-5 text-emerald-500" />,
+      icon: Brain,
       skills: [
-        { name: "OpenCV", color: "bg-blue-600" }, 
-        { name: "Pandas", color: "bg-indigo-700" }, 
-        { name: "Scikit-learn", color: "bg-orange-500" }, 
-        { name: "TensorFlow", color: "bg-orange-600" },
+        { name: "OpenCV", icon: Aperture }, 
+        { name: "Pandas", icon: DatabaseIcon }, 
+        { name: "Scikit-learn", icon: TestTube2 }, 
+        { name: "TensorFlow", icon: Cpu }
       ],
     },
     {
       title: "Databases",
-      icon: <Database className="w-5 h-5 text-emerald-500" />,
+      icon: DatabaseZap,
       skills: [
-        { name: "MongoDB", color: "bg-green-600" }, 
-        { name: "Firebase", color: "bg-yellow-500 text-yellow-900" }, 
-        { name: "SQL", color: "bg-blue-600" }, 
-        { name: "PostgreSQL", color: "bg-blue-700" },
+        { name: "MongoDB", icon: DatabaseIcon }, 
+        { name: "Firebase", icon: Cloud }, 
+        { name: "SQL", icon: DatabaseIcon }, 
+        { name: "PostgreSQL", icon: DatabaseIcon }
       ],
     },
     {
-      title: "Deployment",
-      icon: <Server className="w-5 h-5 text-emerald-500" />,
+      title: "Deployment & Tools",
+      icon: CloudCog,
       skills: [
-        { name: "Vercel", color: "bg-gray-800" }, 
-        { name: "Heroku", color: "bg-purple-700" }
+        { name: "Vercel", icon: Cloud }, 
+        { name: "Heroku", icon: Cloud },
+        { name: "Docker", icon: Puzzle },
+        { name: "Git", icon: GitMerge }
       ],
     },
   ];
 
   const selectedExperience = experiences[selectedExperienceIndex];
+
+  // GitHub Calendar options
+  const calendarColorScheme = "dark";
+  
+  // Calendar styles to match the image
+  const calendarBlockSize = 12;
+  const calendarBlockMargin = 4;
+  const calendarResponsiveBlockSize = 10; // Smaller blocks for mobile
+  const calendarResponsiveBlockMargin = 3; // Smaller margins for mobile
+
+  const contributionYears = [2025, 2024, 2023, 2022]; // 2021 removed
+
+  // Helper function to get skill badge colors (same as before, ensure it's defined)
+  const getSkillColor = (skillName: string): string => {
+    const lowerSkillName = skillName.toLowerCase();
+    if (lowerSkillName.includes('python')) return 'bg-blue-500 hover:bg-blue-600 text-white';
+    if (lowerSkillName.includes('javascript')) return 'bg-yellow-400 hover:bg-yellow-500 text-black';
+    if (lowerSkillName.includes('java')) return 'bg-orange-500 hover:bg-orange-600 text-white';
+    if (lowerSkillName.includes('typescript')) return 'bg-blue-400 hover:bg-blue-500 text-white';
+    if (lowerSkillName.includes('react') || lowerSkillName.includes('next.js')) return 'bg-sky-500 hover:bg-sky-600 text-white';
+    if (lowerSkillName.includes('node.js') || lowerSkillName.includes('express.js')) return 'bg-green-500 hover:bg-green-600 text-white';
+    if (lowerSkillName.includes('spring boot')) return 'bg-lime-500 hover:bg-lime-600 text-black';
+    if (lowerSkillName.includes('mongodb') || lowerSkillName.includes('sql')) return 'bg-emerald-500 hover:bg-emerald-600 text-white';
+    if (lowerSkillName.includes('docker') || lowerSkillName.includes('kubernetes')) return 'bg-blue-600 hover:bg-blue-700 text-white';
+    if (lowerSkillName.includes('aws') || lowerSkillName.includes('cloud')) return 'bg-amber-500 hover:bg-amber-600 text-black';
+    if (lowerSkillName.includes('git') || lowerSkillName.includes('github')) return 'bg-slate-600 hover:bg-slate-700 text-white';
+    return 'bg-slate-400 hover:bg-slate-500 text-black'; // Default color
+  };
 
   return (
     <main className="container mx-auto px-4 py-12 sm:py-16 md:py-20 min-h-screen text-slate-900 dark:text-slate-100">
@@ -314,79 +352,144 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto space-y-12 sm:space-y-16 md:space-y-20">
         {/* GitHub Contributions Section */}
         <section id="github-contributions">
-           <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-[#0d1117] border-[#30363d]">
             <CardHeader className="pb-4">
-              <CardTitle className="text-2xl sm:text-3xl flex items-center justify-center font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-                <Github className="w-7 h-7 mr-3 text-slate-600 dark:text-slate-400" />
-                My GitHub Contributions
+              <CardTitle className="text-2xl sm:text-3xl flex items-center justify-center font-semibold tracking-tight text-white">
+                <Github className="w-7 h-7 mr-3 text-white/70" />
+                Contribution Graph
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-4 sm:p-6 flex justify-center items-center">
+            <CardContent className="p-4 sm:p-6">
               {githubUsername ? (
-                <img 
-                  src={`https://ghchart.rshah.org/40c463/${githubUsername}`}
-                  alt={`${githubUsername}'s GitHub Contribution Graph`}
-                  className="w-full max-w-3xl rounded-md shadow-md dark:bg-slate-800 p-1"
-                />
+                <div className="space-y-4">
+                  <div className="github-contribution-calendar">
+                    <GitHubCalendar 
+                      username={githubUsername}
+                      colorScheme={calendarColorScheme}
+                      hideColorLegend={false}
+                      hideMonthLabels={false}
+                      blockSize={typeof window !== 'undefined' && window.innerWidth < 640 ? calendarResponsiveBlockSize : calendarBlockSize}
+                      blockMargin={typeof window !== 'undefined' && window.innerWidth < 640 ? calendarResponsiveBlockMargin : calendarBlockMargin}
+                      labels={{
+                        totalCount: '{{count}} contributions in the last year',
+                      }}
+                      year={selectedYear}
+                    />
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-2 mt-4">
+                    {contributionYears.map((year) => (
+                      <button
+                        key={year}
+                        onClick={() => setSelectedYear(year)}
+                        className={cn(
+                          "px-4 py-2 rounded-md text-sm font-medium transition-colors",
+                          selectedYear === year
+                            ? "bg-[#40c463] text-[#0d1117]"
+                            : "bg-[#21262d] text-white hover:bg-[#30363d]"
+                        )}
+                      >
+                        {year}
+                      </button>
+                    ))}
+                  </div>
+                  <style jsx global>{`
+                    .github-contribution-calendar {
+                      width: 100%;
+                      overflow-x: auto;
+                    }
+                    .github-contribution-calendar .day {
+                      outline: 1px solid rgba(27, 31, 35, 0.06);
+                      outline-offset: -1px;
+                      border-radius: 2px;
+                    }
+                    .github-contribution-calendar .react-github-calendar__legend {
+                      margin-top: 8px;
+                    }
+                    .github-contribution-calendar text {
+                      fill: #adbac7 !important;
+                      font-size: 12px !important;
+                    }
+                    .github-contribution-calendar .react-github-calendar__meta {
+                      font-size: 14px !important;
+                      color: #adbac7 !important;
+                    }
+                    /* Custom color scheme to match the image */
+                    .github-contribution-calendar .level-0 {
+                      fill: #161b22 !important;
+                    }
+                    .github-contribution-calendar .level-1 {
+                      fill: #0e4429 !important;
+                    }
+                    .github-contribution-calendar .level-2 {
+                      fill: #006d32 !important;
+                    }
+                    .github-contribution-calendar .level-3 {
+                      fill: #26a641 !important;
+                    }
+                    .github-contribution-calendar .level-4 {
+                      fill: #39d353 !important;
+                    }
+                  `}</style>
+                </div>
               ) : (
-                <p className="text-center text-slate-500 dark:text-slate-400">
+                <p className="text-center text-slate-400">
                   Please set your GitHub username to display the contribution graph.
                 </p>
               )}
             </CardContent>
-            <CardFooter className="pt-2 pb-4">
-              <p className="text-center w-full text-xs text-slate-500 dark:text-slate-400">
-                Note: This graph might take a moment to load and is generated by an external service.
-              </p>
-            </CardFooter>
           </Card>
         </section>
 
-        {/* Tech Stack Section - Table format */}
+        {/* Tech Stack Section */}
         <section id="tech-stack">
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 h-full bg-background/80 backdrop-blur-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-2xl sm:text-3xl flex items-center justify-center font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-                <Laptop className="w-7 h-7 mr-3 text-slate-600 dark:text-slate-400" />
+              <CardTitle className="text-xl sm:text-2xl md:text-xl lg:text-2xl flex items-center justify-center font-semibold tracking-tight">
+                <Laptop className="w-6 h-6 mr-2 sm:mr-3 text-primary/90" />
                 Tech Stack
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="rounded-md border border-slate-200 dark:border-slate-700">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-slate-50 dark:bg-slate-800/50">
-                      <TableHead className="w-[200px] font-bold">Category</TableHead>
-                      <TableHead>Skills</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {techStack.map((category) => (
-                      <TableRow key={category.title} className="border-t border-slate-200 dark:border-slate-700">
-                        <TableCell className="font-medium flex items-center">
-                          {category.icon}
-                          <span className="ml-2">{category.title}</span>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex flex-wrap gap-2">
-                            {category.skills.map((skill) => (
+            <CardContent className="p-3 sm:p-4 text-sm">
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow className="border-b-slate-200/80 dark:border-b-slate-700/80">
+                    <TableHead className="w-[120px] sm:w-[150px] px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Category</TableHead>
+                    <TableHead className="px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">Skills</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {techStack.map((category, index) => (
+                    <TableRow key={index} className="border-b-slate-200/50 dark:border-b-slate-700/50 hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
+                      <TableCell className="font-medium px-2 sm:px-4 py-3 align-top text-xs sm:text-sm">
+                        <div className="flex items-center">
+                          {category.icon && React.createElement(category.icon, { className: "w-4 h-4 mr-2 text-primary/80 flex-shrink-0" })}
+                          <span className="truncate">{category.title}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="px-2 sm:px-4 py-3">
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                          {category.skills.map((skill) => {
+                            const SkillIcon = skill.icon;
+                            return (
                               <Badge 
-                                key={skill.name} 
+                                key={skill.name}
+                                variant="default"
                                 className={cn(
-                                  "uppercase px-2 py-1 text-xs font-medium text-white",
-                                  skill.color || "bg-emerald-500"
+                                  "inline-flex items-center text-xs sm:text-xs px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full font-medium shadow-sm transition-all hover:shadow-md",
+                                  getSkillColor(skill.name)
                                 )}
                               >
-                                {skill.name}
+                                {SkillIcon && <SkillIcon className="w-3 h-3 mr-1.5 opacity-90" />}
+                                {skill.name.toUpperCase()}
                               </Badge>
-                            ))}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+                            );
+                          })}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </CardContent>
           </Card>
         </section>
