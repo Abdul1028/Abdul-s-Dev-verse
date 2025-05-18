@@ -1,5 +1,7 @@
 import matter from 'gray-matter';
 import { Octokit } from 'octokit';
+import { serialize } from 'next-mdx-remote/serialize';
+import rehypePrism from 'rehype-prism-plus';
 
 // Configuration - Replace with your actual GitHub username, repo, and path
 // It's better to use environment variables for these, especially for the token.
@@ -8,6 +10,10 @@ const GITHUB_REPO = process.env.GITHUB_REPO || 'dev-verse-blogs';       // Fallb
 const GITHUB_CONTENT_PATH = 'content/blog'; // Path to your blog posts within the repo
 
 console.log(`[BLOG LIB] Initializing with GitHub target: ${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_CONTENT_PATH}`);
+
+
+
+
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -24,6 +30,7 @@ export interface PostFrontmatter {
 
 export interface PostData extends PostFrontmatter {
   content: string;
+  mdxSource?: any;
 }
 
 async function fetchFromGitHub(path: string) {
@@ -93,10 +100,20 @@ export async function getPostBySlug(slug: string): Promise<PostData | null> {
     return null;
   }
 
+  // Serialize MDX with rehype-prism-plus for code highlighting
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      rehypePlugins: [rehypePrism],
+      format: 'mdx',
+    },
+    scope: data,
+  });
+
   console.log(`[BLOG LIB] getPostBySlug: Successfully parsed frontmatter for slug: ${slug}`);
   return {
     ...(data as PostFrontmatter),
     content,
+    mdxSource,
   };
 }
 
