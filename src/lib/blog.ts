@@ -97,24 +97,49 @@ export async function getPostBySlug(slug: string): Promise<PostData | null> {
 
   if (!data.title || !data.date || !data.slug /* || data.slug !== slug */) { // Temporarily commenting out slug match for debugging listing
     console.warn(`[BLOG LIB] getPostBySlug: Invalid or missing required frontmatter for slug: ${slug}. Frontmatter found:`, data);
+    console.log("--- DEBUG: getPostBySlug returning NULL due to invalid frontmatter ---");
     return null;
   }
 
   // Serialize MDX with rehype-prism-plus for code highlighting
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      rehypePlugins: [rehypePrism],
-      format: 'mdx',
-    },
-    scope: data,
-  });
+  let mdxSource;
+  try {
+    mdxSource = await serialize(content, {
+      mdxOptions: {
+        rehypePlugins: [rehypePrism],
+        format: 'mdx',
+      },
+      scope: data,
+    });
+    console.log("--- DEBUG: getPostBySlug - mdxSource object after serialize ---");
+    console.dir(mdxSource, { depth: null });
+    console.log("--- DEBUG: getPostBySlug - mdxSource.compiledSource START ---");
+    console.log(mdxSource.compiledSource);
+    console.log("--- DEBUG: getPostBySlug - mdxSource.compiledSource END ---");
+
+  } catch (error) {
+    console.error(`[BLOG LIB] getPostBySlug: Error during MDX serialization for slug ${slug}:`, error);
+    console.log("--- DEBUG: getPostBySlug returning NULL due to serialization error ---");
+    return null;
+  }
 
   console.log(`[BLOG LIB] getPostBySlug: Successfully parsed frontmatter for slug: ${slug}`);
-  return {
+
+  // Log lengths for debugging truncation
+  console.log(`--- DEBUG: getPostBySlug - Length of original content: ${content.length} ---`);
+  if (mdxSource && mdxSource.compiledSource) {
+    console.log(`--- DEBUG: getPostBySlug - Length of mdxSource.compiledSource: ${mdxSource.compiledSource.length} ---`);
+  } else {
+    console.log(`--- DEBUG: getPostBySlug - mdxSource or mdxSource.compiledSource is undefined ---`);
+  }
+
+  const resultPostData = {
     ...(data as PostFrontmatter),
     content,
     mdxSource,
   };
+  console.log("--- DEBUG: getPostBySlug returning post data ---");
+  return resultPostData;
 }
 
 export async function getAllPosts(): Promise<PostFrontmatter[]> {

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import 'prismjs/themes/prism-okaidia.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,4 +120,101 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* global.css */
+/* Add this at the end of your file */
+
+/* Prism.js Syntax Highlighting */
+:not(pre) > code {
+  background: #f5f5f5;
+  padding: 0.1em 0.4em;
+  border-radius: 0.3em;
+  white-space: normal;
+  color: #d63384; /* Pink for inline code */
+}
+
+.dark :not(pre) > code {
+  background: #2d2d2d;
+  color: #f78c6c; /* Orange for dark mode inline code */
+}
+
+pre {
+  background: #f5f5f5;
+  padding: 1em;
+  border-radius: 0.5em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.dark pre {
+  background: #2d2d2d;
+}
+
+/* Prism theme - you can customize these colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a9955;
+}
+
+.token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #b5cea8;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #ce9178;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #d4d4d4;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #569cd6;
+}
+
+.token.function,
+.token.class-name {
+  color: #dcdcaa;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #d16969;
+}
+
+.prose h1 {
+  @apply text-3xl font-bold mb-6 mt-10 text-gray-900 dark:text-gray-100;
+}
+
+.prose h2 {
+  @apply text-2xl font-bold mb-5 mt-8 text-gray-800 dark:text-gray-200;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mb-4 mt-6 text-gray-700 dark:text-gray-300;
 }

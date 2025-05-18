@@ -58,22 +58,24 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 sm:py-10">
       {/* Breadcrumbs */}
-      <div className="mb-2 text-xs text-muted-foreground flex items-center gap-2">
-        <Link href="/blog" className="hover:text-emerald-500 font-medium">cd ..</Link>
+      <div className="mb-6 text-md text-muted-foreground flex items-center gap-2">
+        <Link href="/blog" className="text-emerald-500 font-medium p-2 -m-1 border border-emerald-500/60 rounded-lg hover:bg-muted/50 transition-colors">cd ..</Link>
         <span className="mx-1">&#62;</span>
         <span className="truncate font-medium">{post.title}</span>
       </div>
+
+
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10 min-h-0">
         {/* Main Content */}
         <div className="min-w-0 lg:pr-8">
           {/* Metadata bar */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground mb-2">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground mb-3">
             <span className="flex items-center gap-1"><CalendarDays className="w-4 h-4" /> {formattedDate}</span>
             <a href="#comments" className="flex items-center gap-1 text-emerald-500 hover:text-emerald-600"><MessageCircle className="w-4 h-4" /> Comments</a>
             {readTime && <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {readTime}</span>}
           </div>
           {/* Title */}
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 leading-tight border-l-4 border-emerald-500 pl-3">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight border-l-4 border-emerald-500 pl-3">
             {post.title}
           </h1>
           {/* Excerpt/Summary */}
@@ -84,24 +86,24 @@ export default async function PostPage({ params }: PostPageProps) {
           )}
           {/* Featured Image */}
           {post.imageUrl && (
-            <div className="mb-4 rounded-md overflow-hidden max-h-40 aspect-[16/5] flex items-center justify-center">
+            <div className="mb-4 rounded-lg overflow-hidden aspect-video flex items-center justify-center shadow-lg">
               <Image src={post.imageUrl} alt={post.title} width={900} height={120} className="w-full h-full object-cover" />
             </div>
           )}
           {/* Blog Content */}
-          <article className="prose prose-neutral dark:prose-invert max-w-none text-sm sm:text-base">
+          <article className="prose prose-neutral dark:prose-invert max-w-none text-sm sm:text-base prose-a:text-emerald-600  hover:prose-a:text-emerald-700 dark:prose-a:text-emerald-400 dark:hover:prose-a:text-emerald-300 prose-strong:text-gray-800 dark:prose-strong:text-gray-200">
             {/* @ts-ignore */}
             <MDXRemote source={post.content} />
           </article>
         </div>
         {/* Sidebar */}
-        <aside className="lg:sticky lg:top-6 lg:self-start lg:border-l border-muted/30 pl-0 lg:pl-8 flex flex-col gap-3 w-full max-w-[320px] mx-auto mt-20 lg:mt-2">
+        <aside className="lg:sticky lg:top-20 lg:self-start lg:border-l border-muted/30 pl-0 lg:pl-8 flex flex-col gap-3 w-full max-w-[320px] mx-auto mt-12 lg:mt-2">
           {/* Written By */}
-          <Card className="border-emerald-400/40 bg-background/80 backdrop-blur shadow-sm rounded-xl p-0">
-            <CardHeader className="py-3 px-4 border-b border-emerald-100 bg-transparent">
+          <Card className="border-emerald-500/70 bg-background/90 backdrop-blur shadow-md hover:shadow-lg transition-shadow rounded-xl p-0">
+            <CardHeader className="py-2 px-3 border-b border-emerald-400/60 bg-transparent">
               <CardTitle className="uppercase tracking-wider text-xs font-semibold text-emerald-500 mb-2">Written By</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col items-center gap-2 py-3 px-4">
+            <CardContent className="flex flex-col items-center justify-center gap-2 py-3 px-3 mb-5 ">
               {post.authorAvatar && (
                 <Image src={post.authorAvatar} alt={post.author} width={48} height={48} className="rounded-full border border-emerald-300 mx-auto" />
               )}
@@ -113,11 +115,11 @@ export default async function PostPage({ params }: PostPageProps) {
           </Card>
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <Card className="border-emerald-400/40 bg-background/80 backdrop-blur shadow-sm rounded-xl p-0">
-              <CardHeader className="py-3 px-4 border-b border-emerald-100 bg-transparent">
+            <Card className="border-emerald-500/70 bg-background/90 backdrop-blur shadow-md hover:shadow-lg transition-shadow rounded-xl p-0">
+              <CardHeader className="py-2 px-3 border-b border-emerald-400/60 bg-transparent">
                 <CardTitle className="uppercase tracking-wider text-xs font-semibold text-emerald-500 mb-2">Tags</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-wrap gap-1 py-3 px-4">
+              <CardContent className="flex flex-wrap items-center justify-center gap-1 py-2 px-3 mb-5">
                 {post.tags.map((tag: string) => (
                   <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
                 ))}
@@ -125,11 +127,11 @@ export default async function PostPage({ params }: PostPageProps) {
             </Card>
           )}
           {/* Share Post */}
-          <Card className="border-emerald-400/40 bg-background/80 backdrop-blur shadow-sm rounded-xl p-0">
-            <CardHeader className="py-3 px-4 border-b border-emerald-100 bg-transparent">
+          <Card className="border-emerald-500/70 bg-background/90 backdrop-blur shadow-md hover:shadow-lg transition-shadow rounded-xl p-0">
+            <CardHeader className="py-2 px-3 border-b border-emerald-400/60 bg-transparent">
               <CardTitle className="uppercase tracking-wider text-xs font-semibold text-emerald-500 mb-2">Share Post</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-wrap gap-2 py-3 px-4 justify-center">
+            <CardContent className="flex flex-wrap items-center justify-center gap-2 py-2 px-3  mb-5 ">
               <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + '/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter" className="hover:text-emerald-500 text-base"><Twitter size={16} /></a>
               <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + '/blog/' + post.slug)}&title=${encodeURIComponent(post.title)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" className="hover:text-emerald-500 text-base"><Linkedin size={16} /></a>
               <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL + '/blog/' + post.slug)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" className="hover:text-emerald-500 text-base"><Facebook size={16} /></a>
@@ -138,11 +140,11 @@ export default async function PostPage({ params }: PostPageProps) {
           </Card>
           {/* Explore More */}
           {randomPosts.length > 0 && (
-            <Card className="border-emerald-500 bg-muted/60 shadow-sm rounded-xl p-0">
-              <CardHeader className="py-2 px-3 border-b border-emerald-100 bg-transparent">
+            <Card className="border-emerald-600 bg-background/90 backdrop-blur shadow-md hover:shadow-lg transition-shadow rounded-xl p-0">
+              <CardHeader className="py-2 px-3 border-b border-emerald-500/70 bg-transparent">
                 <CardTitle className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Explore More</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 py-2 px-3">
+              <CardContent className="flex flex-col justify-center space-y-2 py-2 px-3 mb-5 " >
                 {randomPosts.map((p: any) => (
                   <Link key={p.slug} href={`/blog/${p.slug}`} className="flex items-center gap-2 group hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-md px-1.5 py-1 transition-colors">
                     {p.imageUrl && (
