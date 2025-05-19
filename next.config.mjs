@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/u/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'blog.apify.com',
+        port: '',
+        pathname: '/content/images/**',
+      },
     ],
   },
   webpack: (config, { isServer }) => {
