@@ -1,38 +1,38 @@
 [
   {
-    "id": "project-1",
-    "title": "E-commerce Platform",
-    "description": "A full-featured e-commerce platform built with Next.js, Tailwind CSS, and Stripe integration for payments. Includes product listings, cart functionality, and user accounts.",
+    "id": "whatsapp-chat-reality",
+    "title": "Whatsapp Reality",
+    "description": "A full-stack Next.js web app that turns your exported WhatsApp chats into visual storytelling — private, insightful, and surprisingly fun!\n\nFeatures:\n- See who sends the most messages in your WhatsApp group\n- Find out who replies the fastest\n- Discover your longest streak\n- View your very first and last message\n- See how many hours you've spent chatting\n- WhatsApp Web-style chat view: explore from any participant's perspective\n\n✨ Studio Ghibli-inspired design magic!\n\nHow it works:\nJust upload your exported WhatsApp chat file (1:1 or group), and let the dashboard work its magic. All processing happens in your browser — no data is uploaded or stored anywhere.\n\nHow to Export a WhatsApp Chat:\nOn Android & iOS, go to the chat → More options > Export Chat > Without Media → Save the .txt file. Then upload it to the dashboard. Works for both Android and iOS exports.",
     "images": [
-      "/placeholders/project1-1.jpg", 
-      "/placeholders/project1-2.jpg"
+      "/wit/wit-placeholder.png"
     ],
-    "liveUrl": "https://example.com/live-project-1",
-    "repoUrl": "https://github.com/yourusername/project-1",
-    "tags": ["Next.js", "React", "Tailwind CSS", "Stripe", "TypeScript"],
-    "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
+    "liveUrl": "https://whatsapp-reality-web.vercel.app",
+    "repoUrl": "https://github.com/Abdul1028/whatsapp-reality-web",
+    "tags": [
+      "Next.js",
+      "Clerk",
+      "Shadcn",
+      "Vercel"
+    ],
+    "videoUrl": "https://youtu.be/9EqMXiWFI2o"
   },
   {
-    "id": "project-2",
-    "title": "Portfolio Website V1",
-    "description": "My previous personal portfolio website, designed to showcase my skills and projects. Built with HTML, CSS, and vanilla JavaScript.",
+    "id": "gitstats",
+    "title": "GitStats",
+    "description": "GitStats is a web app that transforms your GitHub profile into beautiful, interactive analytics and insights!\\n\\nFeatures:\\n- 🔥 Visualize your programming language usage across all your repositories\\n- ⭐️ Discover your most popular projects by stars and forks\\n- 📅 Analyze your contribution patterns with a detailed heatmap\\n- 📊 Uncover insights like coding streaks, busiest days, repository age, and more\\n- 🕵️‍♂️ Track your recent activity and event types\\n- 🛠️ Explore a live, interactive API (with Swagger UI) for developers.",
     "images": [
-      "/placeholders/project2-1.jpg"
+      "/gitstats/gitstats-placeholder.png"
     ],
-    "liveUrl": "https://example.com/portfolio-v1",
-    "repoUrl": "https://github.com/yourusername/portfolio-v1",
-    "tags": ["HTML", "CSS", "JavaScript", "Responsive Design"]
-  },
-  {
-    "id": "project-3",
-    "title": "Task Management App",
-    "description": "A collaborative task management application using Firebase for real-time data synchronization and authentication. Users can create tasks, assign them, and track progress.",
-    "images": [
-      "/placeholders/project3-1.jpg",
-      "/placeholders/project3-2.jpg",
-      "/placeholders/project3-3.jpg"
+    "liveUrl": "https://github-statistics-io.vercel.app",
+    "repoUrl": "https://github.com/yourusername/gitstats",
+    "tags": [
+      "GitStats",
+      "Next.js",
+      "Spring Boot",
+      "Open Source",
+      "GitHub",
+      "Web Development"
     ],
-    "repoUrl": "https://github.com/yourusername/task-app",
-    "tags": ["React", "Firebase", "Material UI", "Collaboration"]
+    "videoUrl": ""
   }
 ] 

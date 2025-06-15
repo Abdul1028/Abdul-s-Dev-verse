@@ -48,13 +48,14 @@ export function ProjectCard({ project, isLink = true }: ProjectCardProps) {
           <AspectRatio.Root ratio={1 / 1} className="bg-muted rounded-t-lg">
             {videoId ? (
               <iframe
-                className="w-full h-full object-cover"
-                src={`https://www.youtube.com/embed/${videoId}?autoplay=0&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=${videoId}`}
-                title={`YouTube video player for ${project.title}`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
+              className="w-full h-full object-cover"
+              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=${videoId}&rel=0`}
+              title={`YouTube video player for ${project.title}`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowFullScreen
+              loading="lazy"
+            />
+            
             ) : project.images && project.images.length > 0 && (
               <Image
                 src={project.images[0]}
