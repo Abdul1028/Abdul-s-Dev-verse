@@ -11,7 +11,7 @@ export default function HomePage() {
 
   const socialLinks = [
     { name: 'GitHub', icon: Github, url: 'https://github.com/Abdul1028' }, // Replace with your URL
-    { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/in/yourusername' }, // Replace with your URL
+    { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/abduldotexe/' }, // Replace with your URL
     { name: 'Linktree', icon: Link, url: 'https://linktr.ee/abduldotexe' }, // Replace with your URL
     { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/props.username' }, // Replace with your URL
     { name: 'LeetCode', icon: Code, url: 'https://leetcode.com/Abdul1028' }, // Replace with your URL (using generic Code icon)
