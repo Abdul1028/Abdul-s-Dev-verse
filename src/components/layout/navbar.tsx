@@ -9,7 +9,7 @@ import Image from "next/image";
 import {
   Github, Home, BookText, Briefcase,
   Activity, Coffee, TerminalSquare, Cpu,
-  Menu, X, UserCircle, Moon, Sun // Added UserCircle for About
+  Menu, X, UserCircle, Moon, Sun, MessageSquare 
 } from "lucide-react"; // Added icons
 // import TypewriterTitle from '@/components/ui/typewriter-title'; // No longer using this one for the main title
 import LoopingPhrases from '@/components/ui/looping-phrases'; // Import the new component
@@ -40,6 +40,7 @@ export function Navbar() {
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
     { href: "/projects", label: "Projects", icon: <Briefcase className="h-4 w-4" /> },
     { href: "/blog", label: "Blog", icon: <BookText className="h-4 w-4" /> },
+    { href: "/guestbook", label: "Guestbook", icon: <MessageSquare className="h-4 w-4" /> },
     { href: "/about", label: "About", icon: <UserCircle className="h-4 w-4" /> },
   ];
 
@@ -59,7 +60,7 @@ export function Navbar() {
       { href: "/about", label: "About", icon: UserCircle },
       { href: "/projects", label: "Projects", icon: Briefcase },
       { href: "/blog", label: "Blog", icon: BookText },
-      
+      { href: "/guestbook", label: "Guestbook", icon: MessageSquare },
     ];
 
     return (

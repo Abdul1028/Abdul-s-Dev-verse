@@ -60,11 +60,11 @@ export default function AboutPage() {
   const [selectedYear, setSelectedYear] = useState(2024);
 
   const githubUsername = "Abdul1028";
-  const userCity = "Mumbai"; // TODO: Replace with your city
-  const resumeUrl = "/abdul_shaikh_resume.pdf"; // TODO: Replace with your actual resume URL or path, e.g., /resume.pdf
-  const emailAddress = "rasoolas2003@gmail.com"; // TODO: Replace with your email
-  const profileImageUrl = "/personal-pic.jpeg"; // TODO: Replace with your profile image URL, e.g., /profile.jpg or https://example.com/image.png
-  const finalQuote = "Beyond coding, I'm passionate about exploring new technologies and continuously learning. Let's connect and build something amazing together!"; // TODO: Replace with your quote
+  const userCity = "Mumbai"; 
+  const resumeUrl = "/Abdulshaikh.pdf"; 
+  const emailAddress = "rasoolas2003@gmail.com"; 
+  const profileImageUrl = "/personal-pic.jpeg"; 
+  const finalQuote = "Beyond coding, I'm passionate about exploring new technologies and continuously learning. Let's connect and build something amazing together!"; 
 
   const experiences: Experience[] = [
     {
@@ -83,12 +83,13 @@ export default function AboutPage() {
       shortName: "GDG Club",
       role: "Executive, Application Development Team",
       description: [
-        "Currently contribute to the development and maintenance of MPSTMonTrack, the official college application available on Play Store and App Store.",
+        "Currently contribute to the development and maintenance of MPSTMEOnTrack, the official college application available on Play Store and App Store.",
         "Collaborate with a team to implement new features, fix bugs, and ensure a smooth user experience for students."
       ],
-      link: "#gdg-mpstmontrack-link", // TODO: Replace with actual link
-      linkText: "MPSTMonTrack App (Link Placeholder)",
-      technologies: ["Mobile Dev", "Team Collaboration", "Version Control"],
+      link: "https://apps.apple.com/in/app/mpstme-ontrack/id6525137090",
+
+      linkText: "MPSTMEOnTrack",
+      technologies: ["Mobile Dev", "Team Collaboration", "Flutter","Android","iOS"],
     },
     {
       company: "Freelance Project: KalTrack",
@@ -98,30 +99,32 @@ export default function AboutPage() {
         "Independently designed, developed, and deployed KalTrack, a nutrition and health management application, on the Play Store.",
         "Managed all project phases from concept to launch and ongoing maintenance."
       ],
-      link: "#kaltrack-website-link", // TODO: Replace with actual link
-      linkText: "KalTrack App (Link Placeholder)",
+      link: "#kaltrack-website-link",
+      linkText: "KalTrack App (Under PlayStore Review)",
       technologies: ["Android/iOS", "Health Tech", "Full-Stack Dev"],
     },
     {
-      company: "Startup: E-commerce Venture",
+      company: "Startup Elixor",
       shortName: "E-commerce",
-      role: "Next.js Developer",
+      role: "Full Stack Developer",
       description: [
         "Developed an e-commerce platform for selling perfumes, focusing on a modern user experience using Next.js.",
         "Handled frontend architecture and integration with backend services for product display, cart, and checkout functionalities."
       ],
+      link: "https://www.elixor.live", 
+      linkText: "Elixor",
       technologies: ["Next.js", "React", "E-commerce", "Tailwind CSS"],
     },
     {
-      company: "Hackathon Project: SafeHer",
-      shortName: "SafeHer",
-      role: "Developer",
+      company: "SafeHer",
+      shortName: "Hackathons",
+      role: "Lead Developer",
       description: [
         "Contributed to building SafeHer, a women's safety application, during a hackathon.",
         "The application is available on the Play Store, showcasing rapid development and deployment capabilities."
       ],
-      link: "#safeher-app-link", // TODO: Replace with actual link
-      linkText: "SafeHer App (Link Placeholder)",
+      link: "https://github.com/Abdul1028/SafeHer", 
+      linkText: "SafeHer App",
       technologies: ["Mobile App Dev", "Social Impact", "Rapid Prototyping"],
     },
   ];
@@ -231,10 +234,10 @@ export default function AboutPage() {
             <div className="text-base sm:text-lg text-slate-700 dark:text-slate-300 space-y-4 leading-relaxed">
               <p>
                 I hold a Bachelor's degree in Computer Science and I'm currently pursuing an MCA at NMIMS. 
-                I have robust experience in both developing and exploring (hacking) software, with a particular expertise in Next.js.
+                I have robust experience in both developing and exploring (hacking) software, with a particular expertise in Next.js for web and Expo for cross platfrom apps.
               </p>
               <p>
-                My core programming languages include Python, Java, and JavaScript. I'm proficient with frameworks such as Node.js, Express, Next.js, Spring, and Django. For frontend development, I leverage React, Tailwind CSS, and Shadcn/ui.
+                My core programming languages include Python, Java, and JavaScript. I'm proficient with frameworks such as Node.js, Express, Next.js, Spring, NestJS and Django. For frontend development, I leverage React, Tailwind CSS, and Shadcn/UI.
               </p>
             </div>
           </div>
@@ -253,13 +256,33 @@ export default function AboutPage() {
               </div>
               <CardFooter className="p-4 bg-black-600/90 dark:bg-black-800/90 border-t border-emerald-500 dark:border-emerald-700">
                 <div className="w-full space-y-3">
-                  <Button variant="outline" asChild className="w-full group border-emerald-400/80 dark:border-emerald-600/80 bg-white/90 dark:bg-slate-900/90 hover:border-white dark:hover:border-white hover:bg-white dark:hover:bg-slate-800">
-                    <a href={resumeUrl} target="_blank" rel="noopener noreferrer" download>
-                      <span className="text-emerald-700 dark:text-emerald-300">View Résumé</span>
-                      <ExternalLink className="ml-2 h-4 w-4 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300" />
-                      <Download className="ml-1.5 h-4 w-4 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300" />
-                    </a>
-                  </Button>
+                  <div className="flex w-full gap-2">
+                    <Button
+                      variant="outline"
+                      asChild
+                      className="flex-1 group border-emerald-400/80 dark:border-emerald-600/80 bg-white/90 dark:bg-slate-900/90 hover:border-white dark:hover:border-white hover:bg-white dark:hover:bg-slate-800 flex items-center justify-center gap-2"
+                    >
+                      <a
+                        href={resumeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 justify-center w-full"
+                      >
+                        <span className="text-emerald-700 dark:text-emerald-300 whitespace-nowrap">View Résumé</span>
+                        <ExternalLink className="h-4 w-4 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300" />
+                      </a>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      asChild
+                      className="border-emerald-400/80 dark:border-emerald-600/80 bg-white/90 dark:bg-slate-900/90 hover:border-white dark:hover:border-white hover:bg-white dark:hover:bg-slate-800 flex items-center justify-center"
+                      title="Download Résumé"
+                    >
+                      <a href={resumeUrl} download>
+                        <Download className="h-4 w-4 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300" />
+                      </a>
+                    </Button>
+                  </div>
                   <Button variant="outline" asChild className="w-full group border-emerald-400/80 dark:border-emerald-600/80 bg-white/90 dark:bg-slate-900/90 hover:border-white dark:hover:border-white hover:bg-white dark:hover:bg-slate-800">
                     <a href={`mailto:${emailAddress}`}>
                       <Mail className="mr-2 h-4 w-4 text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300" />
@@ -277,7 +300,7 @@ export default function AboutPage() {
       {/* Tabbed Experience Section */}
       <section id="experience" className="mb-16 md:mb-24">
         <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-center mb-10 sm:mb-12 text-slate-900 dark:text-slate-100">
-          <span className="text-emerald-500 dark:text-emerald-400">2.</span> Where I've Worked
+          <span className="text-emerald-500 dark:text-emerald-400">2.</span> Where I've Excelled
         </h2>
         <div className="md:grid md:grid-cols-12 md:gap-x-8 lg:gap-x-12 min-h-[400px]">
           {/* Left Column: Tabs */}

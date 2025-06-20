@@ -19,20 +19,18 @@
   {
     "id": "gitstats",
     "title": "GitStats",
-    "description": "GitStats is a web app that transforms your GitHub profile into beautiful, interactive analytics and insights!\\n\\nFeatures:\\n- 🔥 Visualize your programming language usage across all your repositories\\n- ⭐️ Discover your most popular projects by stars and forks\\n- 📅 Analyze your contribution patterns with a detailed heatmap\\n- 📊 Uncover insights like coding streaks, busiest days, repository age, and more\\n- 🕵️‍♂️ Track your recent activity and event types\\n- 🛠️ Explore a live, interactive API (with Swagger UI) for developers.",
+    "description": "GitStats is a web app that transforms your GitHub profile into beautiful, interactive analytics and insights!\n Features:\n- 🔥 Visualize your programming language usage across all your repositories\n- ⭐️ Discover your most popular projects by stars and forks\n- 📅 Analyze your contribution patterns with a detailed heatmap\n- 📊 Uncover insights like coding streaks, busiest days, repository age, and more\n- 🕵️‍♂️ Track your recent activity and event types\n- 🛠️ Explore a live, interactive API (with Swagger UI) for developers.",
     "images": [
       "/gitstats/gitstats-placeholder.png"
     ],
     "liveUrl": "https://github-statistics-io.vercel.app",
     "repoUrl": "https://github.com/yourusername/gitstats",
     "tags": [
-      "GitStats",
       "Next.js",
       "Spring Boot",
-      "Open Source",
-      "GitHub",
-      "Web Development"
+      "Heroku",
+      "Vercel"
     ],
-    "videoUrl": ""
+    "videoUrl": "https://youtu.be/jSyz5YYfSU4?si=6o6mZrdvBBqXVPda"
   }
 ] 
