@@ -99,8 +99,8 @@ export default function AboutPage() {
         "Independently designed, developed, and deployed KalTrack, a nutrition and health management application, on the Play Store.",
         "Managed all project phases from concept to launch and ongoing maintenance."
       ],
-      link: "#kaltrack-website-link",
-      linkText: "KalTrack App (Under PlayStore Review)",
+      link: "https://play.google.com/store/apps/details?id=com.KalTrack.app",
+      linkText: "KalTrack App",
       technologies: ["Android/iOS", "Health Tech", "Full-Stack Dev"],
     },
     {

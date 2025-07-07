@@ -18,8 +18,7 @@ export default function HomePage() {
   ];
 
   return (
-    // Main container for the page. 
-    // 'overflow-hidden' is good to prevent scrollbars from the iframe.
+   
     <main className="relative min-h-screen overflow-hidden">
 
       {/* Full-screen iframe for the interactive 3D background */}
